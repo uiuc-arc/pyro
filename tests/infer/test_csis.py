@@ -32,7 +32,7 @@ class Guide(nn.Module):
         pyro.sample("x", dist.Normal(mean, self.std))
 
 
-@pytest.mark.init(rng_seed=7)
+#@pytest.mark.init(rng_seed=7)
 def test_csis_sampling():
     pyro.clear_param_store()
     guide = Guide()
@@ -48,7 +48,7 @@ def test_csis_sampling():
     assert_equal(marginal.mean, torch.tensor(0.0), prec=0.1)
 
 
-@pytest.mark.init(rng_seed=7)
+#@pytest.mark.init(rng_seed=7)
 def test_csis_parameter_update():
     pyro.clear_param_store()
     guide = Guide()
@@ -62,7 +62,7 @@ def test_csis_parameter_update():
         assert_not_equal(init_v, updated_parameters[k])
 
 
-@pytest.mark.init(rng_seed=7)
+#@pytest.mark.init(rng_seed=7)
 def test_csis_validation_batch():
     pyro.clear_param_store()
     guide = Guide()

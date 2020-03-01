@@ -101,7 +101,7 @@ class GaussianChain(TestCase):
 
 
 @pytest.mark.stage("integration", "integration_batch_1")
-@pytest.mark.init(rng_seed=0)
+#@pytest.mark.init(rng_seed=0)
 class GaussianChainTests(GaussianChain):
 
     def test_elbo_reparameterized_N_is_3(self):
@@ -126,8 +126,8 @@ class GaussianChainTests(GaussianChain):
         self.setup_chain(5)
         self.do_elbo_test(False, 5000, 0.001, 0.06, difficulty=0.6)
 
-    @pytest.mark.skip("CI" in os.environ and os.environ["CI"] == "true",
-                      "Skip slow test in travis.")
+    #@pytest.mark.skip("CI" in os.environ and os.environ["CI"] == "true",
+                      #"Skip slow test in travis.")
     def test_elbo_nonreparameterized_N_is_7(self):
         self.setup_chain(7)
         self.do_elbo_test(False, 5000, 0.001, 0.05, difficulty=0.6)
@@ -182,7 +182,7 @@ class GaussianChainTests(GaussianChain):
 
 
 @pytest.mark.stage("integration", "integration_batch_2")
-@pytest.mark.init(rng_seed=0)
+#@pytest.mark.init(rng_seed=0)
 class GaussianPyramidTests(TestCase):
 
     def setUp(self):

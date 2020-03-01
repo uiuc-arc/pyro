@@ -245,13 +245,13 @@ def test_differentiable_loss(model, guide, enumerate1):
     elbo = TraceEnum_ELBO(max_plate_nesting=1,
                           strict_enumeration_warning=any([enumerate1]))
 
-    pyro.set_rng_seed(0)
+    #pyro.set_rng_seed(0)
     loss = elbo.differentiable_loss(model, guide, data)
     param_names = sorted(pyro.get_param_store())
     actual_loss = loss.item()
     actual_grads = grad(loss, [pyro.param(name).unconstrained() for name in param_names])
 
-    pyro.set_rng_seed(0)
+    #pyro.set_rng_seed(0)
     expected_loss = elbo.loss_and_grads(model, guide, data)
     expected_grads = [pyro.param(name).unconstrained().grad for name in param_names]
 

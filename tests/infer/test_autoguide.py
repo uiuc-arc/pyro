@@ -81,9 +81,9 @@ def test_factor(auto_class, Elbo):
     elbo = Elbo(strict_enumeration_warning=False)
     elbo.loss(model, guide, torch.tensor(0.))  # initialize param store
 
-    pyro.set_rng_seed(123)
+    #pyro.set_rng_seed(123)
     loss_5 = elbo.loss(model, guide, torch.tensor(5.))
-    pyro.set_rng_seed(123)
+    #pyro.set_rng_seed(123)
     loss_4 = elbo.loss(model, guide, torch.tensor(4.))
     assert_close(loss_5 - loss_4, -1 - 3)
 
@@ -272,7 +272,7 @@ def test_autoguide_serialization(auto_class, Elbo):
     guide()
     if auto_class is AutoLaplaceApproximation:
         guide = guide.laplace_approximation()
-    pyro.set_rng_seed(0)
+    #pyro.set_rng_seed(0)
     expected = guide.call()
     names = sorted(guide())
 
@@ -287,7 +287,7 @@ def test_autoguide_serialization(auto_class, Elbo):
     guide_deser = torch.jit.load(f)
 
     # Check .call() result.
-    pyro.set_rng_seed(0)
+    #pyro.set_rng_seed(0)
     actual = guide_deser.call()
     assert len(actual) == len(expected)
     for name, a, e in zip(names, actual, expected):
@@ -680,7 +680,7 @@ def test_predictive(auto_class):
     # Test predictive module
     model_trace = poutine.trace(model).get_trace(x, y=None)
     predictive = Predictive(model, guide=guide, num_samples=10)
-    pyro.set_rng_seed(0)
+    #pyro.set_rng_seed(0)
     samples = predictive(x)
     for site in prune_subsample_sites(model_trace).stochastic_nodes:
         assert site in samples
@@ -691,7 +691,7 @@ def test_predictive(auto_class):
     torch.jit.save(traced_predictive, f)
     f.seek(0)
     predictive_deser = torch.jit.load(f)
-    pyro.set_rng_seed(0)
+    #pyro.set_rng_seed(0)
     samples_deser = predictive_deser.call(x)
     # Note that the site values are different in the serialized guide
     assert len(samples) == len(samples_deser)

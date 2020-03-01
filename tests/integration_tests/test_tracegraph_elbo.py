@@ -53,7 +53,7 @@ class NormalNormalTests(TestCase):
     def test_elbo_reparameterized(self):
         self.do_elbo_test(True, 1500, 0.02)
 
-    @pytest.mark.init(rng_seed=0)
+    #@pytest.mark.init(rng_seed=0)
     def test_elbo_nonreparameterized(self):
         self.do_elbo_test(False, 5000, 0.05)
 
@@ -326,7 +326,7 @@ class ExponentialGammaTests(TestCase):
         assert_equal(0.0, beta_error, prec=0.04)
 
 
-@pytest.mark.init(rng_seed=0)
+#@pytest.mark.init(rng_seed=0)
 @pytest.mark.stage("integration", "integration_batch_1")
 class RaoBlackwellizationTests(TestCase):
     def setUp(self):

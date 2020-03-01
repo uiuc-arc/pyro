@@ -9,5 +9,5 @@ def pytest_collection_modifyitems(items):
         if item.nodeid.startswith("tests/infer"):
             if "stage" not in item.keywords:
                 item.add_marker(pytest.mark.stage("unit"))
-            if "init" not in item.keywords:
-                item.add_marker(pytest.mark.init(rng_seed=123))
+            #if "init" not in item.keywords:
+                #item.add_marker(pytest.mark.init(rng_seed=123))
