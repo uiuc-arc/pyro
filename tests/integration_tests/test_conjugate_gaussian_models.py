@@ -176,7 +176,7 @@ class GaussianChainTests(GaussianChain):
                 logger.debug("[mean errors]  (loc, log_scale, kappa) = (%.4f, %.4f, %.4f)" % mean_errors)
                 logger.debug("[step time = %.3f;  N = %d;  step = %d]\n" % (time.time() - t0, self.N, step))
 
-        assert_equal(0.0, max_errors[0], prec=prec)
+        assert_equal([0.0, 0.0, 0.0], [max_errors[0], max_errors[1], max_errors[2]], prec=prec)
         assert_equal(0.0, max_errors[1], prec=prec)
         assert_equal(0.0, max_errors[2], prec=prec)
 
@@ -479,6 +479,6 @@ class GaussianPyramidTests(TestCase):
                              (min_log_sig_error, mean_log_sig_error, max_log_sig_error))
                 logger.debug("[step time = %.3f;  N = %d;  step = %d]\n" % (time.time() - t0, self.N, step))
 
-        assert_equal(0.0, max_log_sig_error, prec=prec)
+        assert_equal([0.0, 0.0, 0.0], [max_log_sig_error, leftmost_constant_error, almost_leftmost_constant_error], prec=prec)
         assert_equal(0.0, leftmost_constant_error, prec=prec)
         assert_equal(0.0, almost_leftmost_constant_error, prec=prec)

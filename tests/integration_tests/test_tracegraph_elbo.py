@@ -91,7 +91,7 @@ class NormalNormalTests(TestCase):
             if k % 250 == 0:
                 logger.debug("loc error, log(scale) error:  %.4f, %.4f" % (loc_error, log_sig_error))
 
-        assert_equal(0.0, loc_error, prec=prec)
+        assert_equal([0.0, 0.0], [loc_error, log_sig_error], prec=prec)
         assert_equal(0.0, log_sig_error, prec=prec)
 
 

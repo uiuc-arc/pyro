@@ -106,5 +106,5 @@ def test_elbo_mapdata(batch_size, map_type):
         if k % 500 == 0:
             logger.debug("errors - {}, {}".format(loc_error, log_sig_error))
 
-    assert_equal(loc_error.item(), 0, prec=0.05)
+    assert_equal([loc_error.item(), log_sig_error.item()], [0,0], prec=0.05)
     assert_equal(log_sig_error.item(), 0, prec=0.06)
