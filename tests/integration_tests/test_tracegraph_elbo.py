@@ -91,7 +91,7 @@ class NormalNormalTests(TestCase):
             if k % 250 == 0:
                 logger.debug("loc error, log(scale) error:  %.4f, %.4f" % (loc_error, log_sig_error))
 
-        assert_equal(0.0, loc_error, prec=prec)
+        assert_equal([0.0, 0.0], [loc_error, log_sig_error], prec=prec)
         assert_equal(0.0, log_sig_error, prec=prec)
 
 
@@ -492,7 +492,7 @@ class RaoBlackwellizationTests(TestCase):
                 if n_superfluous_top > 0 or n_superfluous_bottom > 0:
                     logger.debug("superfluous error: %.4f" % np.max(superfluous_errors))
 
-        assert_equal(0.0, loc_error, prec=0.04)
+        assert_equal([0.0, 0.0, 0.0], [loc_error, log_sig_error, np.max(superfluous_errors) if n_superfluous_top > 0 or n_superfluous_bottom > 0 else 0.0], prec=0.04)
         assert_equal(0.0, log_sig_error, prec=0.05)
         if n_superfluous_top > 0 or n_superfluous_bottom > 0:
             assert_equal(0.0, np.max(superfluous_errors), prec=0.04)

@@ -132,7 +132,7 @@ class NormalNormalTests(TestCase):
             loc_error = param_mse("loc_q", self.analytic_loc_n)
             log_sig_error = param_mse("log_sig_q", self.analytic_log_sig_n)
 
-        assert_equal(0.0, loc_error, prec=0.05)
+        assert_equal([0.0, 0.0], [loc_error, log_sig_error], prec=0.05)
         assert_equal(0.0, log_sig_error, prec=0.05)
 
     def do_fit_prior_test(self, reparameterized, n_steps, loss, debug=False):
@@ -184,7 +184,7 @@ class NormalNormalTests(TestCase):
 
         loc_error = param_mse("loc_q", self.loc0)
         log_sig_error = param_mse("log_sig_q", -0.5 * torch.log(self.lam0))
-        assert_equal(0.0, loc_error, prec=0.05)
+        assert_equal([0.0, 0.0], [loc_error, log_sig_error], prec=0.05)
         assert_equal(0.0, log_sig_error, prec=0.05)
 
 
@@ -319,7 +319,7 @@ class PoissonGammaTests(TestCase):
         for k in range(n_steps):
             svi.step()
 
-        assert_equal(pyro.param("alpha_q"), self.alpha_n, prec=0.2, msg='{} vs {}'.format(
+        assert_equal([pyro.param("alpha_q"), pyro.param("beta_q")], [self.alpha_n, self.beta_n], prec=0.2, msg='{} vs {}'.format(
             pyro.param("alpha_q").detach().cpu().numpy(), self.alpha_n.detach().cpu().numpy()))
         assert_equal(pyro.param("beta_q"), self.beta_n, prec=0.15, msg='{} vs {}'.format(
             pyro.param("beta_q").detach().cpu().numpy(), self.beta_n.detach().cpu().numpy()))
@@ -372,7 +372,7 @@ class PoissonGammaTests(TestCase):
                     print(avg_loglikelihood, avg_penalty)
                     print()
 
-        assert_equal(pyro.param("alpha_q"), self.alpha0, prec=0.2, msg='{} vs {}'.format(
+        assert_equal([pyro.param("alpha_q"), pyro.param("beta_q")], [self.alpha0, self.beta0], prec=0.2, msg='{} vs {}'.format(
             pyro.param("alpha_q").detach().cpu().numpy(), self.alpha0.detach().cpu().numpy()))
         assert_equal(pyro.param("beta_q"), self.beta0, prec=0.15, msg='{} vs {}'.format(
             pyro.param("beta_q").detach().cpu().numpy(), self.beta0.detach().cpu().numpy()))
@@ -434,7 +434,7 @@ def test_exponential_gamma(gamma_dist, n_steps, elbo_impl):
         for k in range(n_steps):
             svi.step(alpha0, beta0, alpha_n, beta_n)
 
-    assert_equal(pyro.param("alpha_q"), alpha_n, prec=prec, msg='{} vs {}'.format(
+    assert_equal([pyro.param("alpha_q"),pyro.param("beta_q")], [alpha_n, beta_n], prec=prec, msg='{} vs {}'.format(
         pyro.param("alpha_q").detach().cpu().numpy(), alpha_n.detach().cpu().numpy()))
     assert_equal(pyro.param("beta_q"), beta_n, prec=prec, msg='{} vs {}'.format(
         pyro.param("beta_q").detach().cpu().numpy(), beta_n.detach().cpu().numpy()))
@@ -539,7 +539,7 @@ class BernoulliBetaTests(TestCase):
 
         alpha_error = param_abs_error("alpha_q_log", self.log_alpha_n)
         beta_error = param_abs_error("beta_q_log", self.log_beta_n)
-        assert_equal(0.0, alpha_error, prec=0.08)
+        assert_equal([0.0, 0.0], [alpha_error, beta_error], prec=0.08)
         assert_equal(0.0, beta_error, prec=0.08)
 
     def do_fit_prior_test(self, reparameterized, n_steps, loss, debug=False):
@@ -593,7 +593,7 @@ class BernoulliBetaTests(TestCase):
 
         alpha_error = param_abs_error("alpha_q_log", torch.log(self.alpha0))
         beta_error = param_abs_error("beta_q_log", torch.log(self.beta0))
-        assert_equal(0.0, alpha_error, prec=0.08)
+        assert_equal([0.0, 0.0], [alpha_error, beta_error], prec=0.08)
         assert_equal(0.0, beta_error, prec=0.08)
 
 

@@ -112,8 +112,8 @@ class GaussianChainTests(GaussianChain):
         self.setup_chain(8)
         self.do_elbo_test(True, 5000, 0.0015, 0.03, difficulty=1.0)
 
-    @pytest.mark.skip("CI" in os.environ and os.environ["CI"] == "true",
-                      "Skip slow test in travis.")
+    #@pytest.mark.skip("CI" in os.environ and os.environ["CI"] == "true",
+                      #"Skip slow test in travis.")
     def test_elbo_reparameterized_N_is_17(self):
         self.setup_chain(17)
         self.do_elbo_test(True, 5000, 0.0015, 0.03, difficulty=1.0)
@@ -126,8 +126,8 @@ class GaussianChainTests(GaussianChain):
         self.setup_chain(5)
         self.do_elbo_test(False, 5000, 0.001, 0.06, difficulty=0.6)
 
-    @pytest.mark.skip("CI" in os.environ and os.environ["CI"] == "true",
-                      "Skip slow test in travis.")
+    #@pytest.mark.skip("CI" in os.environ and os.environ["CI"] == "true",
+                      #"Skip slow test in travis.")
     def test_elbo_nonreparameterized_N_is_7(self):
         self.setup_chain(7)
         self.do_elbo_test(False, 5000, 0.001, 0.05, difficulty=0.6)
@@ -176,7 +176,7 @@ class GaussianChainTests(GaussianChain):
                 logger.debug("[mean errors]  (loc, log_scale, kappa) = (%.4f, %.4f, %.4f)" % mean_errors)
                 logger.debug("[step time = %.3f;  N = %d;  step = %d]\n" % (time.time() - t0, self.N, step))
 
-        assert_equal(0.0, max_errors[0], prec=prec)
+        assert_equal([0.0, 0.0, 0.0], [max_errors[0], max_errors[1], max_errors[2]], prec=prec)
         assert_equal(0.0, max_errors[1], prec=prec)
         assert_equal(0.0, max_errors[2], prec=prec)
 
@@ -260,8 +260,8 @@ class GaussianPyramidTests(TestCase):
         self.setup_pyramid(2)
         self.do_elbo_test(False, 10000, 0.0007, 0.05, 0.96, difficulty=0.5, model_permutation=True)
 
-    @pytest.mark.skip("CI" in os.environ and os.environ["CI"] == "true",
-                      "Skip slow test in travis.")
+    #@pytest.mark.skip("CI" in os.environ and os.environ["CI"] == "true",
+                      #"Skip slow test in travis.")
     def test_elbo_nonreparameterized_three_layers_model_permuted(self):
         self.setup_pyramid(3)
         self.do_elbo_test(False, 15000, 0.0007, 0.05, 0.96, difficulty=0.4, model_permutation=True)
@@ -479,6 +479,6 @@ class GaussianPyramidTests(TestCase):
                              (min_log_sig_error, mean_log_sig_error, max_log_sig_error))
                 logger.debug("[step time = %.3f;  N = %d;  step = %d]\n" % (time.time() - t0, self.N, step))
 
-        assert_equal(0.0, max_log_sig_error, prec=prec)
+        assert_equal([0.0, 0.0, 0.0], [max_log_sig_error, leftmost_constant_error, almost_leftmost_constant_error], prec=prec)
         assert_equal(0.0, leftmost_constant_error, prec=prec)
         assert_equal(0.0, almost_leftmost_constant_error, prec=prec)
