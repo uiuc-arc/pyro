@@ -1,3 +1,4 @@
 [run]
-omit=
-	*/test_*
+include=pyro/*
+omit=tests/*,tutorials/*,examples/*,docs/*,scripts/*
+	
