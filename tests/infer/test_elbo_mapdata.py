@@ -47,7 +47,7 @@ def test_elbo_mapdata(batch_size, map_type):
     analytic_log_sig_n = -0.5 * torch.log(analytic_lam_n)
     analytic_loc_n = sum_data * (lam / analytic_lam_n) +\
         loc0 * (lam0 / analytic_lam_n)
-    n_steps = 7000
+    n_steps = 100
 
     logger.debug("DOING ELBO TEST [bs = {}, map_type = {}]".format(batch_size, map_type))
     pyro.clear_param_store()
@@ -86,7 +86,7 @@ def test_elbo_mapdata(batch_size, map_type):
         else:
             pass
 
-    adam = optim.Adam({"lr": 0.0008, "betas": (0.95, 0.999)})
+    adam = optim.Adam({"lr": 0.04, "betas": (0.95, 0.999)})
     svi = SVI(model, guide, adam, loss=TraceGraph_ELBO())
 
     for k in range(n_steps):
