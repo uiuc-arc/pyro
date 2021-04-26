@@ -42,9 +42,9 @@ def test_posterior_predictive_svi_manual_guide(parallel):
     num_success = dist.Binomial(num_trials, true_probs).sample()
     conditioned_model = poutine.condition(model, data={"obs": num_success})
     svi = SVI(conditioned_model, beta_guide, optim.Adam(dict(lr=1.0)), Trace_ELBO())
-    for i in range(1000):
+    for i in range(120):
         svi.step(num_trials)
-    posterior_predictive = Predictive(model, guide=beta_guide, num_samples=10000,
+    posterior_predictive = Predictive(model, guide=beta_guide, num_samples=300 if parallel else 100,
                                       parallel=parallel, return_sites=["_RETURN"])
     marginal_return_vals = posterior_predictive.get_samples(num_trials)["_RETURN"]
     assert_close(marginal_return_vals.mean(dim=0), torch.ones(5) * 700, rtol=0.05)
